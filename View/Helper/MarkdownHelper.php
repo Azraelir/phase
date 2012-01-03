@@ -61,6 +61,19 @@ class MarkdownHelper extends AppHelper {
     public function process($input = '') {
         return $this->parser->transform($input);
     }
+
+    public function getHeaders() {
+        return $this->parser->getHeaders();
+    }
+
+    /**
+     * setSection
+     *
+     * @param mixed $value
+     */
+    public function setSection($value = 'section') {
+        $this->parser->setSection($value);
+    }
 }
 
 /**
@@ -77,7 +90,68 @@ class PhaseMarkdownParser extends MarkdownExtra_Parser {
      */
     protected $headerIds = array();
 
-    function _doHeaders_callback_atx($matches) {
+    /**
+     * headers
+     */
+    protected $headers = array();
+
+    /**
+     * sectionOpen
+     *
+     * Html5 section elements are added around header sections - this marker is used to know
+     * if a previous section needs to be closed before a new section can be opened
+     *
+     */
+    protected $sectionOpen = 'header';
+
+    /**
+     * transform
+     *
+     * Ensure if there's an open section it is closed
+     *
+     * @param mixed $text
+     */
+    public function transform($text) {
+        $return = parent::transform($text);
+        if ($this->sectionOpen) {
+            $return .= '</section>';
+            $this->sectionOpen = false;
+        }
+
+        return $return;
+    }
+
+    public function getHeaders() {
+        return $this->headers;
+    }
+
+    /**
+     * getSection
+     */
+    public function getSection() {
+        return $this->sectionOpen;
+    }
+
+    /**
+     * setSection
+     *
+     * @param string $value
+     * @param mixed $force
+     */
+    public function setSection($value = 'section', $force = false) {
+        if ($this->sectionOpen === 'header' || $force) {
+            $this->sectionOpen = $value;
+        }
+
+        return $this->sectionOpen;
+    }
+
+    /**
+     * _doHeaders_callback_atx
+     *
+     * @param mixed $matches
+     */
+    public function _doHeaders_callback_atx($matches) {
         if (empty($matches[3])) {
             $matches[3] = Inflector::slug($matches[2], '-');
         }
@@ -85,7 +159,19 @@ class PhaseMarkdownParser extends MarkdownExtra_Parser {
 
 		$level = strlen($matches[1]);
 		$attr  = $this->_doHeaders_attr($id =& $matches[3]);
-		$block = "<h$level$attr>".$this->runSpanGamut($matches[2])."$link</h$level>";
+        $this->headers[] = array(
+            'level' => $level,
+            'id' => end($this->headerIds),
+            'title' => $matches[2]
+        );
+        $openSection = $this->getSection();
+        $section = $this->setSection();
+		$block = "<$section><h$level$attr>".$this->runSpanGamut($matches[2])."$link</h$level>";
+
+        if ($openSection) {
+            $block = "</$openSection>$block";
+        }
+
 		return "\n" . $this->hashBlock($block) . "\n\n";
 	}
 
@@ -94,7 +180,7 @@ class PhaseMarkdownParser extends MarkdownExtra_Parser {
      *
      * @param mixed $matches
      */
-	function _doHeaders_callback_setext($matches) {
+	public function _doHeaders_callback_setext($matches) {
         if (!$matches[2]) {
             $matches[2] = Inflector::slug($matches[1], '-');
         }
@@ -104,7 +190,19 @@ class PhaseMarkdownParser extends MarkdownExtra_Parser {
 			return $matches[0];
 		$level = $matches[3]{0} == '=' ? 1 : 2;
 		$attr  = $this->_doHeaders_attr($id =& $matches[2]);
-		$block = "<h$level$attr>".$this->runSpanGamut($matches[1])."$link</h$level>";
+        $this->headers[] = array(
+            'level' => $level,
+            'id' => end($this->headerIds),
+            'title' => str_replace(' ', '-', $matches[2])
+        );
+        $openSection = $this->getSection();
+        $section = $this->setSection();
+		$block = "<$section><h$level$attr>".$this->runSpanGamut($matches[2])."$link</h$level>";
+
+        if ($openSection) {
+            $block = "</$openSection>$block";
+        }
+
 		return "\n" . $this->hashBlock($block) . "\n\n";
 	}
 
