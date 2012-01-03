@@ -193,11 +193,11 @@ class PhaseMarkdownParser extends MarkdownExtra_Parser {
         $this->headers[] = array(
             'level' => $level,
             'id' => end($this->headerIds),
-            'title' => str_replace(' ', '-', $matches[2])
+            'title' => $matches[1]
         );
         $openSection = $this->getSection();
         $section = $this->setSection();
-		$block = "<$section><h$level$attr>".$this->runSpanGamut($matches[2])."$link</h$level>";
+		$block = "<$section><h$level$attr>".$this->runSpanGamut($matches[1])."$link</h$level>";
 
         if ($openSection) {
             $block = "</$openSection>$block";
