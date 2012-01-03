@@ -18,7 +18,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/screen.css">
 	<link rel="stylesheet" href="/css/syntax.css">
 
     <link href="<?php echo Configure::read('Phase.feed.url') ?>" rel="alternate" title="<?php echo Configure::read('Phase.feed.title') ?>" type="application/atom+xml">
