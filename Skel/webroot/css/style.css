@@ -319,6 +319,9 @@ header p#title {
     font-weight: bold;
 }
 
+aside {
+    margin-bottom: 1em;
+}
 aside a, aside a:visited, footer a, footer a:visited {
     color: white;
     text-decoration: none;
