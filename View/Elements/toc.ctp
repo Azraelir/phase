@@ -6,6 +6,7 @@ if (!$headers) {
 <aside id="toc">
     <h3>Contents</h3>
     <ul>
+        <li><a href='#main'><?php echo $title_for_layout ?></a></li>
         <?php foreach($headers as $header) {
             echo "<li><a href='#{$header['id']}'>{$header['title']}</a></li>";
         } ?>
