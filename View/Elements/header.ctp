@@ -1,13 +1,12 @@
 <div id="header-container">
     <header class="wrapper clearfix">
-    <?php if (Router::url() === '/'): ?>
+    <?php if ($this->action === 'home'): ?>
         <h1 id="title"><?php echo $title_for_layout ?></h1>
     <?php else: ?>
-        <p id="title"><?php echo Configure::read('Phase.site.name') ?></p>
+        <p id="title"><a href="/"><?php echo Configure::read('Phase.site.name') ?></a></p>
     <?php endif; ?>
         <nav>
             <ul>
-                <li><a href="/">Home</a></li>
                 <li><a href="/about.html">about</a></li>
             </ul>
         </nav>

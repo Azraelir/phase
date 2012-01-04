@@ -334,12 +334,18 @@ aside {
     margin-bottom: 1em;
 }
 
+aside ul {
+    list-style: circle inside;
+    padding-left: 0;
+}
+
+#header-container a, #header-container a:visited,
 aside a, aside a:visited, footer a, footer a:visited {
     color: white;
     text-decoration: none;
 }
 
-aside a:hover, footer a:hover {
+#header-container a:hover, aside a:hover, footer a:hover {
     color: white;
     text-decoration: underline;
 }
