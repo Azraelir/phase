@@ -301,11 +301,21 @@ nav a:hover, aside a:hover, aside a:visited{
 /* ===============
     ALL: AD overrides
    =============== */
+
+* {
+    font-family: DeliciousBold, Arial, sans-serif;
+}
+
+#main {
+    color:  #333;
+}
+
 .headerAnchor, a.headerAnchor:visited {
     margin-left: 0.5em;
-    color: #ccc;
+    color: #ddd;
     text-decoration: none;
 }
+
 a.headerAnchor:hover {
     color: #f16529;
 }
@@ -314,6 +324,7 @@ header #title {
     margin-top: 0.6em;
     margin-bottom: 0;
 }
+
 header p#title {
     font-size: 2em;
     font-weight: bold;
@@ -322,6 +333,7 @@ header p#title {
 aside {
     margin-bottom: 1em;
 }
+
 aside a, aside a:visited, footer a, footer a:visited {
     color: white;
     text-decoration: none;
@@ -335,6 +347,12 @@ aside a:hover, footer a:hover {
 footer a.feed {
     margin-top: 18px;
     float: right;
+}
+
+span.date {
+    color: #999;
+    font-family: Monaco, "Courier New", monospace;
+    font-size: 80%;
 }
 
 @media only screen and (max-width: 480px) {

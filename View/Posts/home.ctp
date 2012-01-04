@@ -13,7 +13,11 @@ description: Latest posts from Somebody
   <h2>Recent Writing</h2>
   <ul class="posts">
     <?php foreach($posts as $post): ?>
-      <li><span><?php echo strftime('%d %b, %Y', $post['date']) ?></span> » <a href="<?php echo $post['url']?>"><?php echo $post['title'] ?></a></li>
+      <li>
+        <span class="date"><?php echo strftime('%d %b, %Y', $post['date']) ?></span>
+        »
+        <a href="<?php echo $post['url']?>"><?php echo $post['title'] ?></a>
+      </li>
     <?php endforeach; ?>
     <li><a href="/archives.html">All articles</a></li>
   </ul>
