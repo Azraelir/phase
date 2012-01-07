@@ -1,6 +1,8 @@
 ---
 layout: default
 title: All posts
+meta_title: Index of all posts
+meta_description: Want to see what else has been published on this site? You've found the right place
 ---
 
 <h1>All articles</h1>
