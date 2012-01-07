@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: install
 title: Welcome to phase
 ---
 
