@@ -64,7 +64,7 @@ class MarkdownHelper extends AppHelper {
      *
      */
     public function initialize() {
-        if (file_exists(APP . 'Config/Markdown.php')) {
+        if (!Configure::read('Markdown') && file_exists(APP . 'Config/Markdown.php')) {
             Configure::load('Markdown');
         }
         $this->parser->initialize(Configure::read('Markdown'));
