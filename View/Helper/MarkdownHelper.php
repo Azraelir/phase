@@ -269,11 +269,12 @@ class PhaseMarkdownParser extends MarkdownExtra_Parser {
 
     /**
      * teardown
+     *
+     * Don't want anything to happen on teardown. It is more useful to leave the helper in the used
+     * state to permit extracting headers, abbrs etc used
+st
      */
-    public function teardown() {
-        $this->initializeState();
-        parent::teardown();
-    }
+    public function teardown() {}
 
     /**
      * initializeState
