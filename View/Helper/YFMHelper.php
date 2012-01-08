@@ -43,12 +43,13 @@ class YFMHelper extends AppHelper {
         if (empty($parsed['meta_keywords']) && !empty($parsed['keywords'])) {
             $parsed['meta_keywords'] = $parsed['keywords'];
         }
+        if (!empty($parsed['meta_keywords']) && is_array($parsed['meta_keywords'])) {
+            $parsed['meta_keywords'] = implode(', ', $parsed['meta_keywords']);
+        }
 
         if (empty($parsed['meta_author']) && !empty($parsed['author'])) {
             $parsed['meta_author'] = $parsed['author'];
         }
-
-
 
         if(!empty($parsed['layout'])) {
             $this->_View->layout = $parsed['layout'];
