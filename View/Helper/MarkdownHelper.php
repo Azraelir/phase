@@ -11,16 +11,17 @@ class MarkdownHelper extends AppHelper {
     public $settings = array();
 
     /**
-     * parser
-     */
-    protected $parser;
-
-    /**
      * defaultSettings
      */
     protected $defaultSettings = array(
+        'autoInitialize' => true,
         'run' => 'afterRender'
     );
+
+    /**
+     * parser instance
+     */
+    protected $parser;
 
     /**
      * __construct
@@ -37,6 +38,9 @@ class MarkdownHelper extends AppHelper {
                 $this->settings['run'] = 'never';
             }
         }
+        if ($this->settings['autoInitialize']) {
+            $this->initialize();
+        }
         return parent::__construct($View, $settings);
     }
 
@@ -51,6 +55,19 @@ class MarkdownHelper extends AppHelper {
         }
 
         $this->_View->output = $this->process($this->_View->output);
+    }
+
+    /**
+     * initialize
+     *
+     * Setup predefined variables on the parser instance
+     *
+     */
+    public function initialize() {
+        if (file_exists(APP . 'Config/Markdown.php')) {
+            Configure::load('Markdown');
+        }
+        $this->parser->initialize(Configure::read('Markdown'));
     }
 
     /**
@@ -223,5 +240,47 @@ class PhaseMarkdownParser extends MarkdownExtra_Parser {
         $this->headerIds[] = $id;
 
         return '<a class="headerAnchor" href="#' . $id . '">§</a>';
+    }
+
+    /**
+     * initialize
+     *
+     * Setup predefined properties - such as links and abbrs
+     *
+     * @param array $config
+     */
+    public function initialize($config = array()) {
+        if (!$config) {
+            return;
+        }
+        foreach($config as $key => $val) {
+            $field = 'predef_' . $key;
+            $this->$field = $val;
+        }
+    }
+
+    /**
+     * setup
+     */
+    public function setup() {
+        $this->initializeState();
+        parent::setup();
+    }
+
+    /**
+     * teardown
+     */
+    public function teardown() {
+        $this->initializeState();
+        parent::teardown();
+    }
+
+    /**
+     * initializeState
+     */
+    protected function initializeState() {
+        $this->headerIds = array();
+        $this->headers = array();
+        $this->sectionOpen = 'header';
     }
 }
