@@ -21,13 +21,13 @@
 
 $posts = ClassRegistry::init('Post')->findAll();
 foreach(array_reverse($posts) as $post) {
-    $config['Markdown']['urls'][$post['title']] = $post['url'];
+    $config['Markdown']['urls'][strtolower($post['title'])] = $post['url'];
 
     $config['Markdown']['urls'][$post['year'] . ' '] = $post['url'];
     $config['Markdown']['urls'][$post['year'] . '/' . $post['month']] = $post['url'];
     $config['Markdown']['urls'][$post['year'] . '/' . $post['month'] . '/' . $post['day']] = $post['url'];
 
-    $config['Markdown']['titles'][$post['title']] = $post['title'];
+    $config['Markdown']['titles'][strtolower($post['title'])] = $post['title'];
 
     $config['Markdown']['titles'][$post['year'] . ' '] = $post['title'];
     $config['Markdown']['titles'][$post['year'] . '/' . $post['month']] = $post['title'];
