@@ -1,0 +1,23 @@
+<?php
+/**
+ * The Markdown helper allows you to pre-populate urls, titles and abbr definitions
+ *
+ * If you commonly use the same abbreviations or links - this is where you're define them.
+ * Rename this file to Markdown.php to use.
+ */
+
+
+$config['Markdown'] = array(
+    'abbr' => array(
+        'html' => 'HyperText Markup Language',
+    ),
+    'urls' => array(
+    ),
+    'titles' => array(
+    )
+);
+
+require_once 'MarkdownPosts.php';
+
+ksort($config['Markdown']['urls']);
+ksort($config['Markdown']['titles']);
