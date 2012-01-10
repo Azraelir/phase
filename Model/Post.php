@@ -6,6 +6,8 @@ class Post {
 
     public $ext = 'md';
 
+    public function __construct() {}
+
     public function findAll($limit = true, $checkArchive = true) {
         $extLength = strlen($this->ext);
 
