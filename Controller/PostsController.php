@@ -70,6 +70,6 @@ class PostsController extends AppController {
 			$this->redirect('/');
 		}
 
-		$this->render(implode('-', $path));
+		$this->render(implode('/', $path));
 	}
 }
