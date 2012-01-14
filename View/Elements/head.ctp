@@ -8,18 +8,19 @@
 <head>
     <meta charset="utf-8">
 
-    <title><?php echo $title_for_layout; ?></title>
+    <title><?php echo $this->fetch('title'); ?></title>
 
     <meta name="description" content="<?php echo $meta_description; ?>">
     <meta name="keywords" content="<?php echo $meta_keywords; ?>">
     <meta name="author" content="<?php echo $meta_author; ?>">
+    <?php echo $this->fetch('meta'); ?>
 
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/syntax.css">
-
+    <?php echo $this->fetch('css'); ?>
     <link href="<?php echo Configure::read('Phase.feed.url') ?>" rel="alternate" title="<?php echo Configure::read('Phase.feed.title') ?>" type="application/atom+xml">
 
     <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->

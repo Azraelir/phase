@@ -19,7 +19,7 @@ If java is not available, phase can still be used by using the `--no-compression
 Installation
 ------------
 
-Phase uses cakephp 2.0+, and also makes use of a couple of other projects. To install from scratch:
+Phase uses cakephp 2.1+, and also makes use of a couple of other projects. To install from scratch:
 
     mkdir hmmm-yeah.over-here
     cd hmmm-yeah.over-here

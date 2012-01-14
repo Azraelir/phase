@@ -21,4 +21,4 @@
     <script async defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script async defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
 <![endif]-->
-<?php echo $scripts_for_layout ?>
+<?php echo $this->fetch('script'); ?>

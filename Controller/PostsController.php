@@ -19,8 +19,6 @@ class PostsController extends AppController {
     public $viewClass = 'Phase';
 
     public function archives() {
-        $title_for_layout = 'All posts';
-
         if ($this->params->params['ext'] === 'xml') {
             $posts = $this->Post->findAll(20);
             $this->viewPath = 'Posts/xml';
@@ -28,15 +26,14 @@ class PostsController extends AppController {
             $posts = $this->Post->findAll();
         }
 
-        $this->set(compact('posts', 'title_for_layout'));
+        $this->set(compact('posts'));
     }
 
     public function home() {
         $posts = $this->Post->findAll(6);
-        $title_for_layout = 'Recent writing';
 
         $latest = array_shift($posts);
-        $this->set(compact('posts', 'latest', 'title_for_layout'));
+        $this->set(compact('posts', 'latest'));
     }
 
 /**

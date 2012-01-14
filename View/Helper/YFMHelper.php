@@ -30,7 +30,7 @@ class YFMHelper extends AppHelper {
         $parsed = $this->parse($input);
 
         if (!empty($parsed['title'])) {
-            $parsed['title_for_layout'] = $parsed['title'];
+            $this->_View->assign('title', $parsed['title']);
             if (empty($parsed['meta_title'])) {
                 $parsed['meta_title'] = $parsed['title'];
             }

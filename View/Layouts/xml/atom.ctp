@@ -11,6 +11,6 @@
    <email><?php echo Configure::read('Phase.feed.email') ?></email>
  </author>
 
- <?php echo $content_for_layout; ?>
+<?php echo $this->fetch('content'); ?>
 
 </feed>

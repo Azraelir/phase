@@ -1,4 +1,4 @@
-<?php echo $this->element('head', compact('title_for_layout')) ?>
+<?php echo $this->element('head'); ?>
 <body id="<?php echo $this->name ?>" class="<?php echo $this->action ?>">
     <?php echo $this->element('header') ?>
 
@@ -7,8 +7,8 @@
             <?php echo $this->Session->flash(); ?>
             <article>
                 <header>
-                    <h1><?php echo $title_for_layout ?></h1>
-                    <?php echo $content_for_layout; ?>
+                    <h1><?php echo $this->fetch('title'); ?></h1>
+                    <?php echo $this->fetch('content'); ?>
             </article>
 
             <?php echo $this->element('side'); ?>
@@ -16,6 +16,6 @@
     </div>
 
     <?php echo $this->element('footer') ?>
-    <?php echo $this->element('scripts', compact('scripts_for_layout')) ?>
+    <?php echo $this->element('scripts') ?>
 </body>
 </html>

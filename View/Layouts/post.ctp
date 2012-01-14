@@ -1,4 +1,4 @@
-<?php echo $this->element('head', compact('title_for_layout')) ?>
+<?php echo $this->element('head'); ?>
 <body id="<?php echo $this->name ?>" class="<?php echo $this->action ?>">
     <?php echo $this->element('header') ?>
 
@@ -7,13 +7,13 @@
             <?php echo $this->Session->flash(); ?>
             <article>
                 <header>
-                    <h1><?php echo $title_for_layout ?></h1>
+                    <h1><?php echo $this->fetch('title'); ?></h1>
                     <?php if (!empty($postDate)) { ?>
                     <h3 class="date"><?php echo strftime('%e %B, %Y', $postDate) ?></h3>
                     <?php } ?>
                     <a href="#disqus_thread">Show comments</a>
 
-                    <?php echo $content_for_layout; ?>
+                    <?php echo $this->fetch('content'); ?>
                 </footer>
                     <div id="disqus_thread"></div>
                 </footer>
@@ -24,7 +24,7 @@
     </div>
 
     <?php echo $this->element('footer') ?>
-    <?php echo $this->element('scripts', compact('scripts_for_layout')) ?>
+    <?php echo $this->element('scripts') ?>
     <script>
         var disqus_shortname = '<?php echo Configure::read('Phase.disqus.shortname') ?>';
         <?php if (!file_exists(TMP . 'building')): ?>
