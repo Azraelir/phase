@@ -56,7 +56,8 @@ class DeployTask extends AppShell {
         }
 
         $commands = array(
-            "rsync -rv $output/ $server:$source{$date}",
+            "ssh $server 'rsync -rv $docroot/ $source{$date}/'",
+            "rsync -rv --delete $output/ $server:$source{$date}",
             "ssh $server 'rm $docroot && ln -sf $source{$date} $docroot'"
         );
 
@@ -66,7 +67,7 @@ class DeployTask extends AppShell {
             $this->out('Uploading new version');
         }
 
-        foreach($commands as $command) {
+        foreach ($commands as $command) {
             $this->out($command);
             if (!$dryRun) {
                 passthru($command);
