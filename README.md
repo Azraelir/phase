@@ -28,7 +28,7 @@ Phase uses cakephp 2.1+, and also makes use of a couple of other projects. To in
 	git clone git://github.com/AD7six/phase.git
 	cd phase
 	git submodule update --init --recursive
-	copy Config/core.php.default Config/core.php
+	cp Config/core.php.default Config/core.php
 	cp -R Skel Site
 
 Point your browser at hmm-yeah.over-here/phase/webroot and make sure it doesn't look broken.
