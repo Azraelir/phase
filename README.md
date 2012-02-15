@@ -12,7 +12,7 @@ Dependencies
 Phase dependencies:
 
 * PHP 5.3.0+
-* java
+* Java
 
 If java is not available, phase can still be used by using the `--no-compression` flag.
 
@@ -23,7 +23,7 @@ Phase uses cakephp 2.1+, and also makes use of a couple of other projects. To in
 
     mkdir hmmm-yeah.over-here
     cd hmmm-yeah.over-here
-	git clone git://github.com/cakephp/cakephp.git
+	git clone -b 2.1 git://github.com/cakephp/cakephp.git
 	cd cakephp
 	git clone git://github.com/AD7six/phase.git
 	cd phase
