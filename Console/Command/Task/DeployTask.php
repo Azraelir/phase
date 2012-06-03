@@ -7,14 +7,12 @@ App::uses('AppShell', 'Console/Command');
  */
 class DeployTask extends AppShell {
 
-    public $outputDir = 'publish';
-
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
         $parser->description(array(
             __d('phase', 'Upload static site to public server'),
         ))->addArgument('path', array(
-            'help' => __d('phase', 'Source dir to copy, defaults to "%s"', $this->outputDir),
+            'help' => __d('phase', 'Source dir to copy, defaults to "%s"', Configure::read('Phase.output.dir')),
         ))->addOption('server', array(
             'help' => __d('phase', 'Remote server name'),
         ))->addOption('remotePath', array(
@@ -37,7 +35,7 @@ class DeployTask extends AppShell {
         $date = date("Y-m-d-Hi");
 
         $dryRun = false;
-        $output = rtrim($this->outputDir, '/');
+        $output = rtrim(Configure::read('Phase.output.dir'), '/');
         $server = Configure::read('Phase.deploy.server');
         $source = Configure::read('Phase.deploy.source');
         $docroot = Configure::read('Phase.deploy.public');

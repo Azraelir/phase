@@ -36,6 +36,8 @@ Configure::write('Phase.author.twitter', '');
 Configure::write('Phase.analytics.code', '');
 Configure::write('Phase.disqus.shortname', '');
 
+Configure::write('Phase.output.dir', 'publish');
+
 Configure::write('Phase.deploy.server', '');
 Configure::write('Phase.deploy.source', '');
 Configure::write('Phase.deploy.public', '');

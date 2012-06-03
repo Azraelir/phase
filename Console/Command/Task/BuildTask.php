@@ -8,13 +8,6 @@ App::uses('Folder', 'Utility');
  */
 class BuildTask extends AppShell {
 
-    /**
-     * outputDir
-     *
-     * Where to write the static version of this application
-     */
-    public $outputDir = 'publish';
-
     public $optimizations = array(
         'html' => array(
             'concatCss',
@@ -86,8 +79,10 @@ class BuildTask extends AppShell {
             $this->addUrl('/' . ltrim($this->args[0]));
         }
 
+        $outputDir = Configure::read('Phase.output.dir');
+
         if (!empty($this->params['output'])) {
-            $this->outputDir = $this->params['output'];
+            $outputDir = $this->params['output'];
         }
 
         if (!empty($this->params['no-optimize'])) {
@@ -113,10 +108,10 @@ class BuildTask extends AppShell {
         }
 
         touch(TMP . 'building');
-        exec('rm -rf ' . escapeshellarg($this->outputDir));
-        mkdir($this->outputDir . '/css', 0777, true);
-        mkdir($this->outputDir . '/img', 0777, true);
-        mkdir($this->outputDir . '/js', 0777, true);
+        exec('rm -rf ' . escapeshellarg($outputDir));
+        mkdir($outputDir . '/css', 0777, true);
+        mkdir($outputDir . '/img', 0777, true);
+        mkdir($outputDir . '/js', 0777, true);
 
         if (empty($this->urlStack)) {
             $this->urlStack = $this->seedUrls;
@@ -149,7 +144,7 @@ class BuildTask extends AppShell {
             'help' => __d('phase', 'The seed url to crawl'),
             'required' => false
         ))->addOption('output', array(
-            'help' => __d('phase', 'Where to put the generated files, defaults to "%s"', $this->outputDir),
+            'help' => __d('phase', 'Where to put the generated files, defaults to "%s"', $outputDir),
             'required' => false
         ))->addOption('no-optimize', array(
             'help' => __d('phase', 'Disable all optimizations'),
@@ -174,7 +169,7 @@ class BuildTask extends AppShell {
     protected function addUrl($url) {
         if (
             !empty($this->fourOFours[$url]) ||
-            file_exists($this->outputDir . $url) ||
+            file_exists($outputDir . $url) ||
             in_array($url, $this->urlStack)
         ) {
             return false;
@@ -336,11 +331,11 @@ class BuildTask extends AppShell {
                 $hash = md5($contents);
                 $url = "/$type/$hash.min.$type";
                 $this->concatStack[$id] = $hash;
-                file_put_contents($this->outputDir . $url, $contents);
+                file_put_contents($outputDir . $url, $contents);
 
                 if (!empty($this->optimizations[$type])) {
                     foreach($this->optimizations[$type] as $method) {
-                        $this->$method($contents, $this->outputDir . $url);
+                        $this->$method($contents, $outputDir . $url);
                     }
                 }
             } else {
@@ -462,8 +457,8 @@ class BuildTask extends AppShell {
                 $url = rtrim($url, '/') . '/index.html';
             }
         }
-        if (!is_dir($this->outputDir . dirname($url))) {
-            mkdir($this->outputDir . dirname($url), 0777, true);
+        if (!is_dir($outputDir . dirname($url))) {
+            mkdir($outputDir . dirname($url), 0777, true);
         }
 
         $dot = strrpos($url, '.');
@@ -473,7 +468,7 @@ class BuildTask extends AppShell {
                 $this->$method($contents);
             }
         }
-        file_put_contents($this->outputDir . $url, $contents);
+        file_put_contents($outputDir . $url, $contents);
 
         $urls = array();
         preg_match_all('@(?:src|href)=(["\'])(/[^/]\S+?)(#\S*)?\1@', $contents, $matches);
